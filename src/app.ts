@@ -1,9 +1,9 @@
 import "dotenv/config";
 import { createBot, createProvider, createFlow } from "@builderbot/bot";
 import { MemoryDB } from "@builderbot/bot";
-import { BaileysProvider } from "@builderbot/provider-baileys";
 import { httpInject } from "@builderbot-plugins/openai-assistants";
 import { IAFlow } from "./flows/IAFlow";
+import { MetaProvider } from "@builderbot/provider-meta";
 
 /** Puerto en el que se ejecutará el servidor */
 const PORT = process.env.PORT ?? 3008;
@@ -25,9 +25,11 @@ const main = async () => {
    * Proveedor de servicios de mensajería
    * @type {BaileysProvider}
    */
-  const adapterProvider = createProvider(BaileysProvider, {
-    groupsIgnore: true,
-    readStatus: false,
+  const adapterProvider = createProvider(MetaProvider, {
+    jwtToken: process.env.JWT_TOKEN, //EAARBW3ZBGU0UBAACDjtQIzI8JuEa.............
+    numberId: process.env.NUMBER_ID, //103975305758520
+    verifyToken: process.env.VERIFY_TOKEN, //LO_QUE_SEA,
+    version: "v16.0",
   });
 
   /**
